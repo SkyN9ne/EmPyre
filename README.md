@@ -1,4 +1,4 @@
-#EmPyre
+# EmPyre
 
 EmPyre is a pure Python post-exploitation agent built on cryptologically-secure communications and a flexible architecture. It is based heavily on the controller and communication structure of Empire.
 
@@ -21,29 +21,29 @@ The collection/osx/keylogger module was originally written by joev [here](https:
 
 The process is as follows:
 
-1. client runs launcher.py that GETs stager.py from /stage0
-    launcher.py implements a minimized RC4 decoding stub and negotiation key
+1. client runs `launcher.py` that `GET`s `stager.py` from /stage0
+    `launcher.py` implements a minimized RC4 decoding stub and negotiation key
 
-2. server returns RC4(KEYs, stager.py) (key negotiation stager)
-    stager.py contains minimized DH and AES
+2. server returns RC4(KEYs, `stager.py`) (key negotiation stager)
+    `stager.py` contains minimized DH and AES
 
-3. client generates DH key PUBc, and POSTs HMAC(AES(KEYs, PUBc)) posts to /stage1
+3. client generates DH key PUBc, and `POST`s HMAC(AES(KEYs, PUBc)) posts to /stage1
     server generates a new DH key on each check in
 
 4. server returns HMAC(AES(KEYs, nonce+PUBs))
     client calculates shared DH key KEYn
 
-5. client POSTs HMAC(AES(KEYn, [nonce+1]+sysinfo) to /stage2
+5. client `POST`s HMAC(AES(KEYn, [nonce+1]+sysinfo) to /stage2
 
-6. server returns HMAC(AES(KEYn, patched agent.py))
+6. server returns HMAC(AES(KEYn, patched `agent.py`))
 
-7. client sleeps on interval, and then GETs /tasking.uri
+7. client sleeps on interval, and then `GET`s `/tasking.uri`
 
 8. if no tasking, return standard looking page
 
 9. if tasking, server returns HMAC(AES(KEYn, tasking))
 
-10. client posts HMAC(AES(KEYn, tasking)) to /response.uri
+10. client posts HMAC(AES(KEYn, tasking)) to  `/response.uri`
 
 EmPyre Tracker:
-https://trello.com/b/NASrG4IW/empyre
+<https://trello.com/b/NASrG4IW/empyre>
